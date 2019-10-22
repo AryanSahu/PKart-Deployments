@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+  rules:
+  - host: microservices.info
+    http:
+      paths:
+      - path: /product
+        backend:
+          serviceName: pramatikart-product-service
+          servicePort: 8080
+      - path: /user
+        backend:
+          serviceName: pramatikart-user-service
+          servicePort: 8080
+      - path: /auth
+        backend:
+          serviceName: pramatikart-auth-service
+          servicePort: 8080
+      - path: /order
+        backend:
+          serviceName: pramatikart-order-service
+          servicePort: 8080
+      - path: /cart
+        backend:
+          serviceName: cartservice
+          servicePort: 8080
+      - path: /order
+        backend:
+          serviceName: orderservice
+          servicePort: 8080
